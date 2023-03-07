@@ -3,10 +3,10 @@
     const express = require("express");
     const router = express.Router();
     const userRoute = require("./user/routes");
-    const productRoute = require("./product/routes");
+    const bookRoute = require("./book/routes");
     
     router.use('/user',userRoute);
-    router.use('/product',productRoute);
+    router.use('/book',bookRoute);
     module.exports = router;
 
 })()

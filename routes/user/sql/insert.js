@@ -1,15 +1,13 @@
 const { mysqlHelper } = require("./../../../common");
 
-(() => {
-    module.exports = async (req, res, next) => {
+((insert) => {
+    insert.put = async (req, res, next) => {
         const user = req.user;
         const email = req.email;
         const pass = req.pass;
-        const name = req.name;
-        const phone = req.phone;
 
-        let request = `insert into login values('${name}','${email}','${phone}','${user}','${pass}')`;
+        let request = `insert into login values('${email}','${user}','${pass}')`;
         const response = mysqlHelper.query(request);
-        console.log(req.body);
+        
     }
-})()
+})(module.exports)

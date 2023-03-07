@@ -1,4 +1,3 @@
-'use-strict';
 const mysql = require('mysql2/promise');
 ((mysqlHelper) => {
   let dbClient = null;
@@ -9,7 +8,6 @@ const mysql = require('mysql2/promise');
           user: process.env.MYSQL_DB_USER,
           password: process.env.MYSQL_DB_PASSWORD,
           host: process.env.MYSQL_DB_HOST,
-          port: process.env.MYSQL_DB_MIGRATION_PORT,
           database: process.env.MYSQL_DB_NAME,
           waitForConnections: true,
 	        dateStrings: true,
@@ -32,22 +30,4 @@ const mysql = require('mysql2/promise');
     
   };
 
-  mysqlHelper.queryFormat = (query, values) => {
-    try {
-      return (dbClient.config.queryFormat = function (query, values) {
-        if (!values) return query;
-        return query.replace(
-          /\:(\w+)/g,
-          function (txt, key) {
-            if (values.hasOwnProperty(key)) {
-              return this.escape(values[key]);
-            }
-            return txt;
-          }.bind(this)
-        );
-      });
-    } catch (error) {
-      throw error;
-    }
-  };
 })(module.exports);
