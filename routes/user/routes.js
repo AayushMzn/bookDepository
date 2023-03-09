@@ -4,5 +4,6 @@
     const userController = require("./methods/index")
     
     router.post('/sign-up',userController.userSignup);
+    router.post('/log-in',userController.userLogin);
     module.exports = router;
 })()

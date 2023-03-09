@@ -1,5 +1,6 @@
 (() => {
 module.exports = {
-    userSignup: require('./signup')
+    userSignup: require('./signup'),
+    userLogin: require('./login')
 };
 })();

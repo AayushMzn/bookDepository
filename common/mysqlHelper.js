@@ -1,3 +1,4 @@
+const { query } = require('express');
 const mysql = require('mysql2/promise');
 ((mysqlHelper) => {
   let dbClient = null;
@@ -10,7 +11,7 @@ const mysql = require('mysql2/promise');
           host: process.env.MYSQL_DB_HOST,
           database: process.env.MYSQL_DB_NAME,
           waitForConnections: true,
-	        dateStrings: true,
+          dateStrings: true,
         });
       }
       return dbClient;
@@ -27,7 +28,7 @@ const mysql = require('mysql2/promise');
     } catch (error) {
       throw error;
     }
-    
+
   };
 
 })(module.exports);
