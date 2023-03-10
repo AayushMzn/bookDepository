@@ -1,6 +1,7 @@
 (() => {
     module.exports = {
         mysqlHelper: require("./mysqlHelper"),
-        validationHelper: require("./validationHelper")
+        validationHelper: require("./validationHelper"),
+        hasher: require("./hashHelper")
     }
 })()

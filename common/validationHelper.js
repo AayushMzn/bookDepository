@@ -1,5 +1,8 @@
 const insert = require("../routes/user/sql/insert");
 const sqlHelper = require("./mysqlHelper");
+const hasher=require("./hashHelper");
+const jwt = require("jsonwebtoken");
+
 ((validationHelper) => {
     validationHelper.valid = async function (loginIn) {
         let msg = "signup success";;
@@ -50,23 +53,28 @@ const sqlHelper = require("./mysqlHelper");
             return msg;
         }
     }
-    validationHelper.checkAccount = async function (loginIn) {
-        let msg ;
+    validationHelper.checkAccount = async function (loginIn,res) {
+        let msg;
         const user = loginIn.user;
         const pass = loginIn.pass;
+        let token = ""
+        
         let request = 'Select * from login';
         const response = await sqlHelper.query(request);
-        for (let i = 0; i < response[0].length; i++) {
 
-            // console.log(response[0][i].username)
-            // console.log(response[0][i].password)
-            if (response[0][i].username == user && response[0][i].password == pass) {
+        for (let i = 0; i < response[0].length; i++) {
+            let hash = await hasher.comparePassword(pass, response[0][i].password)
+            // console.log( hash)
+            if (response[0][i].username == user && hash) {
+                token = jwt.sign({user},'top-secret-token',{ expiresIn: '1h' });
+                
                 msg = "login successful";
+                break;
             }
             else {
                 msg = "login failed";
             }
         }
-        return msg;
+        return res.status(200).send({msg,token});
     }
 })(module.exports)
