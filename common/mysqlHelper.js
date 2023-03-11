@@ -20,7 +20,6 @@ const mysql = require('mysql2/promise');
     }
   };
 
-
   mysqlHelper.query = async (query, fields, metaData) => {
     try {
       let res = dbClient.query(query, fields);
@@ -28,7 +27,5 @@ const mysql = require('mysql2/promise');
     } catch (error) {
       throw error;
     }
-
-  };
-
+S  };
 })(module.exports);
